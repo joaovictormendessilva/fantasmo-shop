@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "Headset Stellar Pro",
+    "description": "Áudio espacial de alta fidelidade e cancelamento de ruído ativo.",
+    "price": 899.0,
+    "categorie": "accessories",
+    "imagePath": "/headset-stellar-pro.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Câmera Lumina 4K",
+    "description": "Capture momentos épicos com sensor de última geração e foco híbrido.",
+    "price": 4500.0,
+    "categorie": "photos",
+    "imagePath": "/camera.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Teclado Neon Ghost",
+    "description": "Mecânico, RGB customizável e switches táteis para alta performance.",
+    "price": 549.0,
+    "categorie": "setup",
+    "imagePath": "/keyboard.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Monitor Infinity 34",
+    "description": "Ultrawide curvo com 144Hz para uma imersão completa em jogos.",
+    "price": 3200.0,
+    "categorie": "eletronics",
+    "imagePath": "/screen.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Drone SkyVoyage 2",
+    "description": "Compacto, potente e capaz de filmagens cinematográficas estáveis.",
+    "price": 2890.0,
+    "categorie": "gadgets",
+    "imagePath": "/drone.jpg"
+  }
+]

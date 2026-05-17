@@ -1,21 +1,15 @@
-"use client";
-
-import { authService } from "@/app/services/auth/auth.service";
-import { useRouter } from "next/navigation";
+import Box from "@mui/material/Box";
+import { DashboardBanner } from "./components/dashboard-banner";
+import { ProductsSection } from "./components/products-section";
 
 export default function Dashboard() {
-  const router = useRouter();
-
-  const logout = () => {
-    authService().logout();
-    router.push("/login");
-  };
-
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Bem-vindo ao dashboard!</p>
-      <button onClick={logout}>Logout</button>
-    </div>
+    <Box sx={{ px: "26px", py: "16px", maxWidth: "1230px", margin: "0 auto" }}>
+      <Box sx={{ display: { xs: "none", sm: "block" } }}>
+        <DashboardBanner />
+      </Box>
+
+      <ProductsSection />
+    </Box>
   );
 }
