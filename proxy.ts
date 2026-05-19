@@ -4,6 +4,7 @@ import { verifyToken } from "./app/lib/auth";
 
 export async function proxy(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
+  const isRootPath = request.nextUrl.pathname === "/";
   const isLoginPage = request.nextUrl.pathname === "/login";
 
   if (!token) {
@@ -21,7 +22,7 @@ export async function proxy(request: NextRequest) {
     return response;
   }
 
-  if (isLoginPage) {
+  if (isLoginPage || isRootPath) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
@@ -29,5 +30,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login", "/dashboard/:path*"],
+  matcher: ["/login", "/dashboard/:path*", "/"],
 };
