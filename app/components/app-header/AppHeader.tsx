@@ -8,6 +8,7 @@ import { CircleUser, Ghost, LogOut, ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import { type IPopoverMenuItem, PopoverMenu } from "../popover-menu";
+import { PopoverCart } from "./popover-cart";
 
 export function AppHeader() {
   const router = useRouter();
@@ -67,9 +68,11 @@ export function AppHeader() {
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <IconButton>
-            <ShoppingCart size={22} />
-          </IconButton>
+          <PopoverCart>
+            <IconButton>
+              <ShoppingCart size={22} />
+            </IconButton>
+          </PopoverCart>
 
           <PopoverMenu items={menuOptions}>
             <IconButton>
