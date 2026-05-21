@@ -1,17 +1,17 @@
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import Popover from "@mui/material/Popover";
-import { MouseEvent, PropsWithChildren, useState } from "react";
-import { PopoverCartItem } from "./popover-cart-item";
 import { useCartContext } from "@/app/contexts/cart-context/CartContext";
-import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
-import ListItem from "@mui/material/ListItem";
 import { formartToCurrencyBRL } from "@/app/helpers/format-currency";
-import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
+import { MouseEvent, PropsWithChildren, useState } from "react";
+import { RequestProductsButton } from "../../request-products-button";
+import { ListCartItem } from "./list-cart-item";
 
 export function PopoverCart({ children }: PropsWithChildren) {
-  const { cartItems } = useCartContext();
+  const { cartItems, formattedTotalPrice } = useCartContext();
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -24,8 +24,6 @@ export function PopoverCart({ children }: PropsWithChildren) {
   function handleClose() {
     setAnchorEl(null);
   }
-
-  const totalPrice = formartToCurrencyBRL(cartItems.reduce((acc, current) => acc + current.price, 0));
 
   return (
     <>
@@ -66,19 +64,17 @@ export function PopoverCart({ children }: PropsWithChildren) {
         {cartItems.length > 0 && (
           <List sx={{ p: 1 }}>
             {cartItems.map((product) => (
-              <PopoverCartItem key={product.id} product={product} />
+              <ListCartItem key={product.id} product={product} />
             ))}
 
             <Divider />
 
             <ListItem sx={{ justifyContent: "space-between", py: 2 }}>
               <Typography>Total:</Typography>
-              <Typography sx={{ fontWeight: "bold" }}>{totalPrice}</Typography>
+              <Typography sx={{ fontWeight: "bold" }}>{formattedTotalPrice}</Typography>
             </ListItem>
 
-            <Button fullWidth variant="contained">
-              Solicitar Produtos
-            </Button>
+            <RequestProductsButton />
           </List>
         )}
       </Popover>

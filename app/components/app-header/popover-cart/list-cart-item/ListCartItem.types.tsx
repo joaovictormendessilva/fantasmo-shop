@@ -1,5 +1,5 @@
 import { IProductsDto } from "@/app/components/product-card/ProductCard.types";
 
-export type PopoverCartItemProps = {
+export type ListCartItemProps = {
   product: IProductsDto;
 };
