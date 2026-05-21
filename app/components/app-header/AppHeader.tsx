@@ -9,8 +9,12 @@ import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import { type IPopoverMenuItem, PopoverMenu } from "../popover-menu";
 import { PopoverCart } from "./popover-cart";
+import Badge from "@mui/material/Badge";
+import { useCartContext } from "@/app/contexts/cart-context/CartContext";
 
 export function AppHeader() {
+  const { cartItems } = useCartContext();
+
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -70,7 +74,9 @@ export function AppHeader() {
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <PopoverCart>
             <IconButton>
-              <ShoppingCart size={22} />
+              <Badge badgeContent={cartItems.length} color="primary">
+                <ShoppingCart size={22} />
+              </Badge>
             </IconButton>
           </PopoverCart>
 
