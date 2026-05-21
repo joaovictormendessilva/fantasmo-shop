@@ -1,6 +1,6 @@
 "use client";
 
-import { authService } from "@/app/services/auth/auth.service";
+import { authService } from "@/app/client/services/auth/auth.service";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
