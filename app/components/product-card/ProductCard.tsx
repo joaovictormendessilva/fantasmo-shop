@@ -1,19 +1,35 @@
-import { useCartContext } from "@/app/contexts/cart-context/CartContext";
 import { formartToCurrencyBRL } from "@/app/helpers/format-currency";
-import Button from "@mui/material/Button";
+import Button, { ButtonProps } from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { memo } from "react";
 import { ProductCardProps } from "./ProductCard.types";
 
-export function ProductCard({ product }: ProductCardProps) {
-  const { handleAddItemToCart } = useCartContext();
-
+function ProductCardComponent({ product, onAdd, onRemove, isAddedToCart }: ProductCardProps) {
   const handleAddItem = () => {
-    handleAddItemToCart(product);
+    onAdd(product);
   };
+
+  const handleRemoveItem = () => {
+    onRemove(product.id);
+  };
+
+  const isAvailableButtonProps = {
+    text: "Adicionar ao carrinho",
+    color: "primary",
+    fn: handleAddItem,
+  };
+
+  const isAddedButtonProps = {
+    text: "Remover do carrinho",
+    color: "error",
+    fn: handleRemoveItem,
+  };
+
+  const buttonProps = isAddedToCart ? isAddedButtonProps : isAvailableButtonProps;
 
   return (
     <Card sx={{ maxWidth: { xs: "100%", sm: 390 }, width: "100%" }}>
@@ -28,10 +44,17 @@ export function ProductCard({ product }: ProductCardProps) {
       </CardContent>
 
       <CardActions>
-        <Button fullWidth variant="contained" onClick={handleAddItem}>
-          Adicionar ao carrinho
+        <Button
+          fullWidth
+          variant="contained"
+          color={buttonProps.color as ButtonProps["color"]}
+          onClick={buttonProps.fn}
+        >
+          {buttonProps.text}
         </Button>
       </CardActions>
     </Card>
   );
 }
+
+export const ProductCard = memo(ProductCardComponent);

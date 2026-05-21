@@ -6,8 +6,11 @@ import products from "@/app/data/products.json";
 import { FilterProducts } from "@/app/components/filter-products";
 import { ProductCard } from "@/app/components/product-card";
 import { IProductsDto } from "@/app/components/product-card/ProductCard.types";
+import { useCartContext } from "@/app/contexts/cart-context/CartContext";
 
 export function ProductsSection() {
+  const { handleAddItemToCart, handleRemoveItemFromCart, cartIds } = useCartContext();
+
   const [filter, setFilter] = useState("");
 
   const handleFilterProducts = (e: string) => setFilter(e);
@@ -35,7 +38,13 @@ export function ProductsSection() {
         }}
       >
         {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+            key={product.id}
+            product={product}
+            onAdd={handleAddItemToCart}
+            onRemove={handleRemoveItemFromCart}
+            isAddedToCart={cartIds.has(product.id)}
+          />
         ))}
       </Box>
     </Box>

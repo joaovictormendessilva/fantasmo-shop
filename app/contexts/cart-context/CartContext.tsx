@@ -13,20 +13,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCartItems((prev) => [...prev, item]);
   }, []);
 
-  const handleRemoveItemFromCart = useCallback(
-    (id: number) => {
-      const remainingItems = cartItems.filter((item) => item.id !== id);
+  const handleRemoveItemFromCart = useCallback((id: number) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  }, []);
 
-      setCartItems(remainingItems);
-    },
-    [cartItems],
-  );
+  const cartIds = useMemo(() => {
+    return new Set(cartItems.map((item) => item.id));
+  }, [cartItems]);
 
   const values: CartContextProps = useMemo(() => {
     return {
       cartItems,
       handleAddItemToCart,
       handleRemoveItemFromCart,
+      cartIds,
     };
   }, [cartItems, setCartItems, handleAddItemToCart, handleRemoveItemFromCart]);
 

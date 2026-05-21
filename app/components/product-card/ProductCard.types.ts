@@ -9,4 +9,7 @@ export interface IProductsDto {
 
 export type ProductCardProps = {
   product: IProductsDto;
+  onAdd: (product: IProductsDto) => void;
+  onRemove: (id: number) => void;
+  isAddedToCart: boolean;
 };
