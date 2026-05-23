@@ -4,6 +4,7 @@ export interface CartContextProps {
   cartItems: IProductsDto[];
   handleAddItemToCart: (item: IProductsDto) => void;
   handleRemoveItemFromCart: (id: number) => void;
+  clearCart: () => void;
   cartIds: Set<number>;
   formattedTotalPrice: string;
 }

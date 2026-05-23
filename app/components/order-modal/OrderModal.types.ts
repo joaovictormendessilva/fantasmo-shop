@@ -6,6 +6,7 @@ export type OrderModalProps = {
   formattedTotalPrice: string;
   isOpen: boolean;
   onClose: VoidFunction;
+  onConfirm: VoidFunction;
 };
 
 export interface IOrderFormValues extends Omit<IOrderDto, "products"> {}

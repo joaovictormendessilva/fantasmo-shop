@@ -6,7 +6,7 @@ import { OrderModal } from "../order-modal";
 import { useState } from "react";
 
 export function RequestProductsButton() {
-  const { cartItems, formattedTotalPrice } = useCartContext();
+  const { cartItems, formattedTotalPrice, clearCart } = useCartContext();
 
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
 
@@ -24,6 +24,7 @@ export function RequestProductsButton() {
           formattedTotalPrice={formattedTotalPrice}
           isOpen={isOrderModalOpen}
           onClose={toggleModal}
+          onConfirm={clearCart}
         />
       )}
     </>

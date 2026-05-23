@@ -18,6 +18,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   }, []);
 
+  const clearCart = useCallback(() => {
+    setCartItems([]);
+  }, []);
+
   const cartIds = useMemo(() => {
     return new Set(cartItems.map((item) => item.id));
   }, [cartItems]);
@@ -32,10 +36,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       cartItems,
       handleAddItemToCart,
       handleRemoveItemFromCart,
+      clearCart,
       cartIds,
       formattedTotalPrice,
     };
-  }, [cartItems, setCartItems, handleAddItemToCart, handleRemoveItemFromCart]);
+  }, [cartItems, setCartItems, handleAddItemToCart, handleRemoveItemFromCart, clearCart]);
 
   return <CartContext.Provider value={values}>{children}</CartContext.Provider>;
 };

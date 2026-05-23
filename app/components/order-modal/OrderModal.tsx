@@ -10,11 +10,12 @@ import Modal from "@mui/material/Modal";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 import { ChangeEvent, useState } from "react";
 import { ListCartItem } from "../app-header/popover-cart/list-cart-item";
 import { IOrderFormValues, OrderModalProps } from "./OrderModal.types";
 
-export function OrderModal({ cartItems, formattedTotalPrice, isOpen, onClose }: OrderModalProps) {
+export function OrderModal({ cartItems, formattedTotalPrice, isOpen, onClose, onConfirm }: OrderModalProps) {
   const defaultValues: IOrderFormValues = {
     to: "",
     customerName: "",
@@ -28,6 +29,10 @@ export function OrderModal({ cartItems, formattedTotalPrice, isOpen, onClose }: 
     setFormValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const changeCustomerPhoneNumberFormValue = (e: string) => {
+    setFormValues((prev) => ({ ...prev, customerPhoneNumber: e }));
+  };
+
   const createPayload = (): IOrderDto => {
     return {
       to: formValues.to,
@@ -38,18 +43,24 @@ export function OrderModal({ cartItems, formattedTotalPrice, isOpen, onClose }: 
   };
 
   const handleSendEmail = async () => {
+    if (!isValid || !hasPhoneNumber) return;
+
     setIsLoading(true);
 
     const payload: IOrderDto = createPayload();
 
     try {
       await emailService().sendOrderEmail(payload);
+      onConfirm();
     } catch (error) {
       throw new Error((error as Error).message);
     } finally {
       setIsLoading(false);
     }
   };
+
+  const hasPhoneNumber = formValues.customerPhoneNumber.trim() !== "";
+  const isValid = hasPhoneNumber ? matchIsValidTel(formValues.customerPhoneNumber) : true;
 
   return (
     <Modal
@@ -119,7 +130,16 @@ export function OrderModal({ cartItems, formattedTotalPrice, isOpen, onClose }: 
 
             <Stack>
               <InputLabel>TELEFONE</InputLabel>
-              <TextField name="customerPhoneNumber" fullWidth size="small" onChange={changeFormValues} />
+              <MuiTelInput
+                size="small"
+                value={formValues.customerPhoneNumber}
+                onChange={changeCustomerPhoneNumberFormValue}
+                defaultCountry="BR"
+                fullWidth
+                forceCallingCode
+                error={!isValid}
+                helperText={!isValid ? "Telefone inválido" : ""}
+              />
             </Stack>
 
             <List>
