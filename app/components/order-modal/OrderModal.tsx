@@ -14,6 +14,7 @@ import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 import { ChangeEvent, useState } from "react";
 import { ListCartItem } from "../app-header/popover-cart/list-cart-item";
 import { IOrderFormValues, OrderModalProps } from "./OrderModal.types";
+import { toast } from "react-toastify";
 
 export function OrderModal({ cartItems, formattedTotalPrice, isOpen, onClose, onConfirm }: OrderModalProps) {
   const defaultValues: IOrderFormValues = {
@@ -51,8 +52,10 @@ export function OrderModal({ cartItems, formattedTotalPrice, isOpen, onClose, on
 
     try {
       await emailService().sendOrderEmail(payload);
+      toast.success("Email enviado com sucesso!");
       onConfirm();
     } catch (error) {
+      toast.error("Ocorreu um erro ao enviar o email.");
       throw new Error((error as Error).message);
     } finally {
       setIsLoading(false);

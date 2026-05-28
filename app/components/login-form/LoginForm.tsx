@@ -7,6 +7,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
+import { toast } from "react-toastify";
 
 interface ILoginFormValues {
   email: string;
@@ -36,9 +37,11 @@ export function LoginForm() {
         password: formValues.password,
       });
 
+      toast.success("Sucesso!");
+
       router.push("/dashboard");
     } catch (error) {
-      alert(error);
+      toast.error("Credenciais inválidas. Tente novamente com outros valores.");
     }
   };
 
