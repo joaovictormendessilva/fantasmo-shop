@@ -46,12 +46,12 @@ export function LoginForm() {
     <Stack sx={{ gap: 2 }}>
       <Stack>
         <InputLabel>E-MAIL</InputLabel>
-        <TextField name="email" size="small" onChange={changeFormValues} />
+        <TextField name="email" placeholder="Digite qualquer coisa..." size="small" onChange={changeFormValues} />
       </Stack>
 
       <Stack>
         <InputLabel>SENHA</InputLabel>
-        <TextField name="password" size="small" onChange={changeFormValues} />
+        <TextField name="password" placeholder="Digite qualquer coisa..." size="small" onChange={changeFormValues} />
       </Stack>
 
       <Button variant="contained" onClick={handleLogin}>
