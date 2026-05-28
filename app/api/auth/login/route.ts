@@ -6,7 +6,7 @@ export async function POST(req: Request) {
 
   const { email, password } = body;
 
-  if (email !== "admin@email.com" || password !== "123456") {
+  if (email === "" || password === "") {
     return NextResponse.json({ message: "invalid credentials" }, { status: 401 });
   }
 
